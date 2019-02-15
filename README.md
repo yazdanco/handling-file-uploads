@@ -8,7 +8,7 @@ This version of the package is only compatible with PHP 7.1.0 or newer.
 Install the package via composer:
 
 ``` bash
-composer install aminyazdanpanah/save-uploaded-files
+composer require aminyazdanpanah/save-uploaded-files
 ```
 
 ## Basic Usage
