@@ -1,14 +1,37 @@
 {
-    "name": "aminyazdanpanah/save-uploading-files",
-    "description": "Easily save all your files into your path directory and extract their info",
+    "name": "aminyazdanpanah/save-uploaded-files",
+    "description": "Easily save all your uploaded files into your path directory and extract their info",
+    "keywords": ["save", "upload", "file", "filename", "move to", "image", "validator", "php"],
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Amin Yazdanpanah",
-            "email": "contact@aminyazdanpanah.com"
+            "email": "contact@aminyazdanpanah.com",
+            "homepage": "http://www.aminyazdanpanah.com"
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "AYazdanpanah\\SaveUploadedFiles\\": "src"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\SaveUploadedFiles\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^7.1.0"
+    }
 }
