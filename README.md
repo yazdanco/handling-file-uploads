@@ -123,7 +123,9 @@ $extractions = save_as($config_files);
 You can extract details of your upload:
 ```php
 print_r($extractions);
-/**
+```
+Result:
+```text
 Array
 (
     [0] => Array
@@ -196,7 +198,7 @@ Array
 
 )
 
-*/
+
 ``` 
 ##### Attributes of config_files
 
