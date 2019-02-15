@@ -19,7 +19,7 @@
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
-class Validator extends Validate implements ValidatorInterface
+class Validator extends Validate
 {
     private $min_size;
     private $max_size;
@@ -55,7 +55,7 @@ class Validator extends Validate implements ValidatorInterface
      */
     public function setMinSize(int $min_size)
     {
-        $this->min_size = $min_size;
+        $this->min_size = $min_size * 1024;
         return $this;
     }
 
@@ -65,7 +65,7 @@ class Validator extends Validate implements ValidatorInterface
      */
     public function setMaxSize(int $max_size)
     {
-        $this->max_size = $max_size;
+        $this->max_size = $max_size * 1024;
         return $this;
     }
 

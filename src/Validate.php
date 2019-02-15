@@ -19,10 +19,64 @@
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
-class Validate
+use AYazdanpanah\SaveUploadedFiles\Exception\Exception;
+
+abstract class Validate implements ValidatorInterface
 {
+    private $file_size;
+    private $file_extension;
+
+    /**
+     * @throws Exception
+     */
     public function validate()
     {
+        if($this->getMaxSize() < $this->getFileSize()){
+            throw new Exception("The uploaded file was too large");
+        }
 
+        if($this->getMinSize() > $this->getFileSize()){
+            throw new Exception("The uploaded file was too small");
+        }
+
+        if(!in_array($this->getFileExtension(),$this->getType()) && !current($this->getType()) == '*'){
+            throw new Exception("The uploaded file was too small");
+        }
+    }
+
+    /**
+     * @param mixed $file_size
+     * @return Validate
+     */
+    public function setFileSize($file_size)
+    {
+        $this->file_size = $file_size;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileSize()
+    {
+        return $this->file_size;
+    }
+
+    /**
+     * @param mixed $file_extension
+     * @return Validate
+     */
+    public function setFileExtension($file_extension)
+    {
+        $this->file_extension = $file_extension;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileExtension()
+    {
+        return $this->file_extension;
     }
 }

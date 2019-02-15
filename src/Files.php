@@ -16,7 +16,6 @@
  * limitations under the License.
  */
 
-
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
@@ -31,24 +30,24 @@ class Files
      */
     public static function files($files)
     {
-        $validator = null;
+        $validator = static::validator(static::mockValidator());
 
         if (!is_array($files) && count($files) > 0) {
             throw new Exception("File must be an array", 500);
         }
 
         foreach ($files as $file) {
-            if (!isset($file['filename'], $file['path'])) {
+            if (!isset($file['name'], $file['save_to'])) {
                 throw new Exception("Filename or path is not specified", 500);
             }
 
             if (isset($files['validator'])) {
-                $validator = static::validator($files['validator']);
+                $validator = static::validator($file['validator']);
             }
 
             $extractions[] = (new File($validator))
-                ->file($file['filename'])
-                ->save($file['path']);
+                ->file($file['name'])
+                ->save($file['save_to']);
         }
 
         return $extractions;
@@ -69,5 +68,15 @@ class Files
             ->setMinSize($validator['min_size'])
             ->setMaxSize($validator['max_size'])
             ->setType($validator['type']);
+    }
+
+    private static function mockValidator()
+    {
+        return [
+            'min_size' => 1,
+            'max_size' => 999999,
+            'type' => ['*']
+
+        ];
     }
 }

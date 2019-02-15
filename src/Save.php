@@ -19,7 +19,10 @@
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
-class Save
+use AYazdanpanah\SaveUploadedFiles\Exception\Exception;
+use AYazdanpanah\SaveUploadedFiles\Exception\SaveExceptionInterface;
+
+abstract class Save implements FileInterface
 {
 
     private $validator;
@@ -33,8 +36,63 @@ class Save
         $this->validator = $validator;
     }
 
+    /**
+     * @param $path
+     * @return array
+     * @throws Exception
+     */
     public function save($path)
     {
-        return [];
+        try {
+            $this->validate();
+            $this->moveFile($path);
+            return $this->message(true, "The file uploaded with success");
+        } catch (SaveExceptionInterface $e) {
+            return $this->message(false, $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function validate()
+    {
+        $this->validator
+            ->setFileSize($this->getFileSize())
+            ->setFileExtension($this->getFileExtension())
+            ->validate();
+    }
+
+    /**
+     * @param $path
+     * @throws Exception
+     */
+    private function moveFile($path)
+    {
+        if (!move_uploaded_file($this->getFileTmpName(), $path . "/". $this->getbasenamefile())) {
+            throw new Exception("The file was not saved!");
+        }
+    }
+
+    /**
+     * @param $status
+     * @param $message
+     * @return array
+     * @throws Exception
+     */
+    private function message($status, $message)
+    {
+        return [
+            'status' => $status,
+            'message' => $message,
+            'file_details' => [
+                'name' => $this->getFileName(),
+                'type' => $this->getFileType(),
+                'tmp_name' => $this->getFileTmpName(),
+                'size' => $this->getFileSize(),
+                'extension' => $this->getFileExtension(),
+                'basename' => $this->getbasenamefile()
+            ]
+        ];
     }
 }

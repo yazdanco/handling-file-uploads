@@ -19,16 +19,129 @@
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
+use AYazdanpanah\SaveUploadedFiles\Exception\Exception;
+
 class File extends Save
 {
-    private $file;
+    private $filename;
+
     /**
-     * @param $file
+     * @param $filename
      * @return File
      */
-    public function file($file)
+    public function file($filename)
     {
-        $this->file = $file;
+        $this->filename = $filename;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    private function getFile()
+    {
+        if (!isset($_FILES[$this->filename])) {
+            throw new Exception($this->filename . " was not uploaded", 500);
+        }
+
+        if($code = $_FILES[$this->filename]['error']){
+            $this->throwErrorException($code);
+        }
+
+        return $_FILES[$this->filename];
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getFileName()
+    {
+        return explode('.', $this->getFile()['name'])[0];
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getFileType()
+    {
+        return $this->getFile()['type'];
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getFileTmpName()
+    {
+        return $this->getFile()['tmp_name'];
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getFileSize()
+    {
+        return $this->getFile()['size'];
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getBaseNameFile()
+    {
+        return basename($this->getFile()['name']);
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getFileExtension()
+    {
+        $name = explode('.', $this->getFile()['name']);
+        return end($name);
+    }
+
+    /**
+     * @param $code
+     * @throws Exception
+     */
+    private function throwErrorException($code)
+    {
+        switch ($code){
+            case 1:
+                throw new Exception("The uploaded file exceeds the upload_max_filesize directive in php.ini",500);
+                break;
+            case 2:
+                throw new Exception("The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",500);
+                break;
+            case 3:
+                throw new Exception("The uploaded file was only partially uploaded",500);
+                break;
+            case 4:
+                throw new Exception("No file was uploaded",500);
+                break;
+            case 5:
+                throw new Exception("Unknown error occurred.",500);
+                break;
+            case 6:
+                throw new Exception("Missing a temporary folder.",500);
+                break;
+            case 7:
+                throw new Exception("Failed to write file to disk",500);
+                break;
+            case 8:
+                throw new Exception("A PHP extension stopped the file upload",500);
+                break;
+            default:
+                throw new Exception("Unknown error occurred.",500);
+        }
+
+
     }
 }
