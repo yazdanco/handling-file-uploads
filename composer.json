@@ -1,0 +1,14 @@
+{
+    "name": "aminyazdanpanah/save-uploading-files",
+    "description": "Easily save all your files into your path directory and extract their info",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Amin Yazdanpanah",
+            "email": "contact@aminyazdanpanah.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
