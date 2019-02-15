@@ -216,7 +216,7 @@ Array
 |:-----------:	|:---------:	|:----------------------------------------------------:	|
 |   min_size   	|     1      	|         The minimum size of files that are allowed (KiloByte).        	|
 | max_size 	| 999999 	|          The maximum size of files that are allowed (KiloByte).          	|
-| types      | * (everything) 	|          The types that are allowed (must be an array)                     	|
+| types      | '*' (everything) 	|          The types that are allowed (must be an array)                     	|
 
 ## Example
 For see complete example, please see [example.php](https://github.com/aminyazdanpanah/save-uploaded-files/examples/example.php)
