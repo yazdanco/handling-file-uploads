@@ -219,7 +219,7 @@ Array
 | types      | '*' (everything) 	|          The types that are allowed (must be an array)                     	|
 
 ## Example
-For see complete example, please see [example.php](https://github.com/aminyazdanpanah/save-uploaded-files/examples/example.php)
+For see complete example, please see [example.php](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/examples/example.php)
 
 ## Contributing
 
