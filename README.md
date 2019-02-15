@@ -204,7 +204,7 @@ Array
 
 |     attr    	|  default  	|                         mean                         	|
 |:-----------:	|:---------:	|:----------------------------------------------------:	|
-|   name   	|     **mandatory:** must be specified      	|         The name you pass to PHP($_Files).        	|
+|   name   	|     **mandatory:** must be specified      	|         The name you pass to the PHP($_Files).        	|
 | save_to 	| **mandatory:** must be specified 	|          The path you want to save on your server or computer.          	|
 | save_as      | Base file name 	|          The name you want to change it.                     	|
 |   override 	|     false     	|         Override original file with the same filename .         	|
