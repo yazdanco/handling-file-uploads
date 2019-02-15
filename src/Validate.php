@@ -16,11 +16,13 @@
  * limitations under the License.
  */
 
-
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
 class Validate
 {
+    public function validate()
+    {
 
+    }
 }

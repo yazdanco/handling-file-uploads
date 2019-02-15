@@ -18,9 +18,11 @@
 
 if (! function_exists('save_as')) {
     /**
-
+     * @param $files
+     * @return mixed
      */
-    function save_as()
+    function save_as($files)
     {
+        return $files;
     }
 }

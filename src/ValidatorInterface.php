@@ -16,11 +16,41 @@
  * limitations under the License.
  */
 
-
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
 interface ValidatorInterface
 {
+    /**
+     * @param int $min_size
+     * @return $this
+     */
+    public function setMinSize(int $min_size);
 
+    /**
+     * @param int $max_size
+     * @return $this
+     */
+    public function setMaxSize(int $max_size);
+
+    /**
+     * @param array $type
+     * @return $this
+     */
+    public function setType(array $type);
+
+    /**
+     * @return $this
+     */
+    public function getMinSize();
+
+    /**
+     * @return mixed
+     */
+    public function getMaxSize();
+
+    /**
+     * @return mixed
+     */
+    public function getType();
 }

@@ -21,11 +21,14 @@ namespace AYazdanpanah\SaveUploadedFiles;
 
 class File extends Save
 {
+    private $file;
     /**
      * @param $file
+     * @return File
      */
     public function file($file)
     {
         $this->file = $file;
+        return $this;
     }
 }

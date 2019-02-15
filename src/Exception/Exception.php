@@ -16,25 +16,6 @@
  * limitations under the License.
  */
 
-namespace AYazdanpanah\SaveUploadedFiles;
+namespace AYazdanpanah\SaveUploadedFiles\Exception;
 
-
-class Save
-{
-
-    private $validator;
-
-    /**
-     * Save constructor.
-     * @param Validator $validator
-     */
-    public function __construct(Validator $validator)
-    {
-        $this->validator = $validator;
-    }
-
-    public function save($path)
-    {
-        return [];
-    }
-}
+class Exception extends \Exception implements SaveExceptionInterface{}
