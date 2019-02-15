@@ -25,7 +25,19 @@ use AYazdanpanah\SaveUploadedFiles\Exception\SaveExceptionInterface;
 abstract class Save implements FileInterface
 {
 
+    /**
+     * @var Validator
+     */
     private $validator;
+
+    /**
+     * @var bool
+     */
+    private $override;
+    /**
+     * @var bool
+     */
+    private $save_as;
 
     /**
      * Save constructor.
@@ -46,7 +58,7 @@ abstract class Save implements FileInterface
         try {
             $this->validate();
             $this->moveFile($path);
-            return $this->message(true, "The file uploaded with success");
+            return $this->message(true, "The file \"" . $this->getBaseNameFile() . "\" has been uploaded.");
         } catch (SaveExceptionInterface $e) {
             return $this->message(false, $e->getMessage());
         }
@@ -69,8 +81,22 @@ abstract class Save implements FileInterface
      */
     private function moveFile($path)
     {
-        if (!move_uploaded_file($this->getFileTmpName(), $path . "/". $this->getbasenamefile())) {
-            throw new Exception("The file was not saved!");
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        if (null !== $this->getSaveAs()) {
+            $file_path = $path . "/" . $this->getSaveAs() . "." . $this->getFileExtension();
+        }else{
+            $file_path = $path . "/" . $this->getbasenamefile();
+        }
+
+        if (!$this->isOverride() && file_exists($file_path)) {
+            throw new Exception("Sorry, file already exists. The file path: " . $file_path);
+        }
+
+        if (!move_uploaded_file($this->getFileTmpName(), $file_path)) {
+            throw new Exception("Sorry, there was an error uploading your file");
         }
     }
 
@@ -82,17 +108,65 @@ abstract class Save implements FileInterface
      */
     private function message($status, $message)
     {
-        return [
+        $message = [
             'status' => $status,
             'message' => $message,
-            'file_details' => [
-                'name' => $this->getFileName(),
-                'type' => $this->getFileType(),
-                'tmp_name' => $this->getFileTmpName(),
-                'size' => $this->getFileSize(),
-                'extension' => $this->getFileExtension(),
-                'basename' => $this->getbasenamefile()
-            ]
+
         ];
+
+        if ($status) {
+            $message = array_merge(
+                $message,
+                [
+                    'file_details' => [
+                        'name' => $this->getFileName(),
+                        'type' => $this->getFileType(),
+                        'tmp_name' => $this->getFileTmpName(),
+                        'size' => $this->getFileSize(),
+                        'extension' => $this->getFileExtension(),
+                        'basename' => $this->getbasenamefile(),
+                        'save_as' => (null === $this->getSaveAs()) ? $this->getbasenamefile() : $this->getSaveAs()
+                    ]
+                ]
+            );
+        }
+
+        return $message;
+    }
+
+    /**
+     * @param bool $override
+     * @return Save
+     */
+    public function setOverride(bool $override): Save
+    {
+        $this->override = $override;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOverride(): bool
+    {
+        return $this->override;
+    }
+
+    /**
+     * @param mixed $save_as
+     * @return Save
+     */
+    public function setSaveAs($save_as): Save
+    {
+        $this->save_as = $save_as;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSaveAs()
+    {
+        return $this->save_as;
     }
 }

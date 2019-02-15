@@ -21,18 +21,79 @@ use AYazdanpanah\SaveUploadedFiles\Files;
 
 if (! function_exists('save_as')) {
     /**
-     * @param $files_config
+     * @param $config_files
      * @return mixed
      */
-    function save_as($files_config): array
+    function save_as($config_files): array
     {
         try {
-            return Files::files($files_config);
+            return Files::files($config_files);
         } catch (SaveExceptionInterface $e) {
             return [
                 'status' => false,
                 'message' => "error: " . $e->getMessage()
             ];
         }
+    }
+}
+
+if (! function_exists('generateRandomString')) {
+    /**
+     * @param int $length
+     * @return string
+     */
+    function generateRandomString($length = 10)
+    {
+        return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+    }
+}
+
+if (! function_exists('video_types')) {
+    /**
+     * @return mixed
+     */
+    function video_types(): array
+    {
+        return [
+            'webm',
+            'mkv',
+            'flv',
+            'vob',
+            'ogv',
+            'ogg',
+            'drc',
+            'gif',
+            'gifv',
+            'avi',
+            'MTS',
+            'M2TS',
+            'mov',
+            'qt',
+            'yuv',
+            'rm',
+            'rmvb',
+            'asf',
+            'amv',
+            'mp4',
+            'm4p ',
+            'm4v',
+            'mpg',
+            'mp2',
+            'mpeg',
+            'mpe',
+            'mpg',
+            'mpeg',
+            'm2v',
+            '3gp',
+            '3g2',
+            'mxf',
+            'roq',
+            'nsv',
+            'flv',
+            'f4v',
+            'f4p',
+            'f4a',
+            'f4b',
+        ];
     }
 }

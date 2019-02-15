@@ -30,7 +30,6 @@ class Files
      */
     public static function files($files)
     {
-        $validator = static::validator(static::mockValidator());
 
         if (!is_array($files) && count($files) > 0) {
             throw new Exception("File must be an array", 500);
@@ -41,12 +40,26 @@ class Files
                 throw new Exception("Filename or path is not specified", 500);
             }
 
-            if (isset($files['validator'])) {
+            $validator = static::validator(static::mockValidator());
+            $override = false;
+            $save_as = null;
+
+            if (isset($file['validator'])) {
                 $validator = static::validator($file['validator']);
+            }
+
+            if (isset($file['override'])) {
+                $override = $file['override'];
+            }
+
+            if (isset($file['save_as'])) {
+                $save_as = $file['save_as'];
             }
 
             $extractions[] = (new File($validator))
                 ->file($file['name'])
+                ->setOverride($override)
+                ->setSaveAs($save_as)
                 ->save($file['save_to']);
         }
 
@@ -60,14 +73,14 @@ class Files
      */
     private static function validator($validator): Validator
     {
-        if (!isset($validator['min_size'], $validator['max_size'], $validator['type']) || !is_array($validator['type'])) {
+        if (!isset($validator['min_size'], $validator['max_size'], $validator['types']) || !is_array($validator['types'])) {
             throw new Exception("invalid validator inputs", 500);
         }
 
         return (new Validator())
             ->setMinSize($validator['min_size'])
             ->setMaxSize($validator['max_size'])
-            ->setType($validator['type']);
+            ->setType($validator['types']);
     }
 
     private static function mockValidator()
@@ -75,7 +88,7 @@ class Files
         return [
             'min_size' => 1,
             'max_size' => 999999,
-            'type' => ['*']
+            'types' => ['*']
 
         ];
     }

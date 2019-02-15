@@ -42,7 +42,7 @@ class File extends Save
     private function getFile()
     {
         if (!isset($_FILES[$this->filename])) {
-            throw new Exception($this->filename . " was not uploaded", 500);
+            throw new Exception("There is no \"" .$this->filename . "\" in \$_Files", 500);
         }
 
         if($code = $_FILES[$this->filename]['error']){

@@ -17,27 +17,43 @@
  */
 
 
-//
+// before require auto load, you should install package via composer:
+// composer install
+//or
+// composer install aminyazdanpanah/save-uploaded-files
+// Note: to find out how to install composer, just google "install or download composer"
 require_once '../vendor/autoload.php';
 
 if(isset($_POST["submit"])) {
-    $files = [
+    $config_files = [
         [
             'name' => 'upload_image',
-            'save_to' => __DIR__ . "/images",
+            'save_to' => __DIR__ . "/images/user/" . time(),
             'validator' => [
-                'min_size' => 512,
+                'min_size' => 100,
                 'max_size' => 2048,
-                'type' => ['jpg', 'jpeg', 'png']
+                'types' => ['jpg', 'jpeg', 'png']
             ]
         ],
         [
             'name' => 'upload_doc',
             'save_to' => __DIR__ . "/docs",
+            'save_as' => 'my_doc_name',
+            'override' => true,
             'validator' => [
-                'min_size' => 30,
+                'min_size' => 10,
                 'max_size' => 1024,
-                'type' => ['doc', 'docx']
+                'types' => ['doc', 'docx']
+            ]
+        ],
+        [
+            'name' => 'upload_video',
+            'save_to' => __DIR__ . "/videos",
+            'save_as' => generateRandomString(),
+            'validator' => [
+                'min_size' => 512,
+                'max_size' => 1024 * 70,
+                'types' => video_types()
             ]
         ],
         [
@@ -46,7 +62,7 @@ if(isset($_POST["submit"])) {
         ]
     ];
     echo "<pre>";
-    print_r(save_as($files));
+    print_r(save_as($config_files));
     echo "</pre>";
 }
 ?>
@@ -57,8 +73,9 @@ if(isset($_POST["submit"])) {
 <form action="" method="post" enctype="multipart/form-data">
     Select files to upload: <br><br><br>
     Select an image: <input type="file" name="upload_image" id="upload_image"><br><br>
-    Select an document(word): <input type="file" name="upload_doc" id="upload_doc"><br><br>
-    Select an raw: <input type="file" name="upload_raw" id="upload_raw"><br><br>
+    Select a video: <input type="file" name="upload_video" id="upload_video"><br><br>
+    Select a document(word): <input type="file" name="upload_doc" id="upload_doc"><br><br>
+    Select a raw file: <input type="file" name="upload_raw" id="upload_raw"><br><br>
     <input type="submit" value="Upload" name="submit"><br><br>
 </form>
 
