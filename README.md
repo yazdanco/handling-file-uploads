@@ -115,7 +115,7 @@ print_r($save_as->names());// Returns all upload names.
 print_r($save_as->count());// Returns the number of uploads
 ```
 
-example of "details of upload":
+A example of "details of the upload":
 
 ```text
 [upload_doc] => Array
