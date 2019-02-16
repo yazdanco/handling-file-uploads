@@ -32,15 +32,15 @@ abstract class Validate implements ValidatorInterface
     public function validate()
     {
         if ($this->getMaxSize() <= $this->getFileSize()) {
-            throw new Exception("The size file is " . intval($this->getFileSize() / 1024) . "KB! It must not be greater than " . intval($this->getMaxSize() / 1024) . "KB");
+            throw new Exception("The file size is " . intval($this->getFileSize() / 1024) . "KB! It must not be greater than " . intval($this->getMaxSize() / 1024) . "KB");
         }
 
         if ($this->getMinSize() >= $this->getFileSize()) {
-            throw new Exception("The size file is " . intval($this->getFileSize() / 1024) . "KB! It must be at least " . intval($this->getMinSize() / 1024) . "KB");
+            throw new Exception("The file size is " . intval($this->getFileSize() / 1024) . "KB! It must be at least " . intval($this->getMinSize() / 1024) . "KB");
         }
 
         if (!in_array($this->getFileExtension(), $this->getType()) && !in_array("*", $this->getType())) {
-            throw new Exception("Sorry, the \"" . $this->getFileExtension() . "\" files are not allowed! Only " . implode(" , ", $this->getType()) . " files are allowed. ");
+            throw new Exception("Sorry, the \"" . $this->getFileExtension() . "\" files are not allowed! Only " . implode(", ", $this->getType()) . " files are allowed. ");
         }
     }
 

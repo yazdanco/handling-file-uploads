@@ -16,24 +16,18 @@
  * limitations under the License.
  */
 
-use AYazdanpanah\SaveUploadedFiles\Exception\SaveExceptionInterface;
 use AYazdanpanah\SaveUploadedFiles\Files;
+use AYazdanpanah\SaveUploadedFiles\Filter;
 
 if (! function_exists('save_as')) {
     /**
      * @param $config_files
      * @return mixed
+     * @throws \AYazdanpanah\SaveUploadedFiles\Exception\SaveExceptionInterface
      */
-    function save_as($config_files): array
+    function save_as($config_files): Filter
     {
-        try {
-            return Files::files($config_files);
-        } catch (SaveExceptionInterface $e) {
-            return [
-                'status' => false,
-                'message' => "error: " . $e->getMessage()
-            ];
-        }
+        return Files::files($config_files);
     }
 }
 

@@ -25,7 +25,7 @@ class Files
 {
     /**
      * @param $files
-     * @return array
+     * @return Filter
      * @throws Exception
      */
     public static function files($files)
@@ -34,7 +34,7 @@ class Files
         if (!is_array($files) && count($files) > 0) {
             throw new Exception("File must be an array", 500);
         }
-
+        $extractions = [];
         foreach ($files as $file) {
             if (!isset($file['name'], $file['save_to'])) {
                 throw new Exception("Filename or path is not specified", 500);
@@ -56,14 +56,14 @@ class Files
                 $save_as = $file['save_as'];
             }
 
-            $extractions[] = (new File($validator))
+            $extractions[$file['name']] = (new File($validator))
                 ->file($file['name'])
                 ->setOverride($override)
                 ->setSaveAs($save_as)
                 ->save($file['save_to']);
         }
 
-        return $extractions;
+        return new Filter($extractions);
     }
 
     /**
@@ -74,7 +74,7 @@ class Files
     private static function validator($validator): Validator
     {
         if (!isset($validator['min_size'], $validator['max_size'], $validator['types']) || !is_array($validator['types'])) {
-            throw new Exception("invalid validator inputs", 500);
+            throw new Exception("Invalid validator inputs: check min_size, max_size, and types again", 500);
         }
 
         return (new Validator())
@@ -83,6 +83,9 @@ class Files
             ->setType($validator['types']);
     }
 
+    /**
+     * @return array
+     */
     private static function mockValidator()
     {
         return [

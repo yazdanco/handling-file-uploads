@@ -1,5 +1,11 @@
 # Save Uploaded Files
-This package helps you to save all of your uploaded files easily
+The powerful upload manger for PHP that allows you to save all your uploaded files with a validator and extract details of files into an `array`. 
+
+## Features
+* Easily manage your all uploaded files by using config_file variable.
+* Validate your uploaded files by adding `validator` key in your config_file array.
+* Extract the details of uploaded files into an array.
+* PHP > 7.1.0.
 
 ## Installation
 
@@ -20,40 +26,17 @@ $config_files = [
     [
         'name' => 'upload_image',
         'save_to' => __DIR__ . "/images/user/" . time(),
+        'save_as' => generateRandomString(),
         'validator' => [
             'min_size' => 100,
             'max_size' => 2048,
             'types' => ['jpg', 'jpeg', 'png']
         ]
-    ],
-    [
-        'name' => 'upload_doc',
-        'save_to' => __DIR__ . "/docs",
-        'save_as' => 'my_doc_name',
-        'override' => true,
-        'validator' => [
-            'min_size' => 10,
-            'max_size' => 1024,
-            'types' => ['doc', 'docx']
-        ]
-    ],
-    [
-        'name' => 'upload_video',
-        'save_to' => __DIR__ . "/videos",
-        'save_as' => generateRandomString(),
-        'validator' => [
-            'min_size' => 512,
-            'max_size' => 1024 * 70,
-            'types' => video_types()
-        ]
-    ],
-    [
-        'name' => 'upload_raw',
-        'save_to' => __DIR__ . "/raw"
     ]
 ];
 
-print_r(save_as($config_files));
+$save_as = save_as($config_files)->all();
+
 
 ```
 
@@ -122,84 +105,70 @@ $extractions = save_as($config_files);
 
 You can extract details of your upload:
 ```php
-print_r($extractions);
+print_r($save_as->all());// Returns all uploads and their details.
+print_r($save_as->get(['upload_video', 'upload_raw']));// Returns specified uploads and their details.
+print_r($save_as->except(['upload_raw', 'upload_image']));// Returns all uploads and their details except those ones specified.
+print_r($save_as->first());// Returns first upload and it's detail.
+print_r($save_as->succeeded());// Returns all succeeded uploads and their details.
+print_r($save_as->failed());// Returns all failed uploads and their details.
+print_r($save_as->names());// Returns all upload names.
+print_r($save_as->count());// Returns the number of uploads
 ```
-Result:
+
+example of "details of upload":
+
 ```text
-Array
-(
-    [0] => Array
-        (
-            [status] => 1
-            [message] => The file "profile.jpg" has been uploaded.
-            [file_details] => Array
-                (
-                    [name] => profile
-                    [type] => image/jpeg
-                    [tmp_name] => C:\xampp\tmp\phpE816.tmp
-                    [size] => 169010
-                    [extension] => jpg
-                    [basename] => profile.jpg
-                    [save_as] => profile.jpg
-                )
+[upload_doc] => Array
+    (
+        [status] => 1
+        [message] => The file "CV -  Work  - Amin Yazdanpanah.docx" has been uploaded.
+        [file_details] => Array
+            (
+                [name] => CV -  Work
+                [type] => application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                [tmp_name] => C:\xampp\tmp\phpE8E.tmp
+                [size] => 27450
+                [extension] => docx
+                [basename] => CV -  Work.docx
+                [save_as] => my_doc_name.docx
+                [dir_path] => C:\xampp\htdocs\save-upload-files\examples/docs
+                [file_path] => C:\xampp\htdocs\save-upload-files\examples/docs/my_doc_name.docx
+                [upload_datetime] => 2019-02-16 23:25:43
+                [stat] => Array
+                    (
+                        [0] => 2
+                        [1] => 0
+                        [2] => 33206
+                        [3] => 1
+                        [4] => 0
+                        [5] => 0
+                        [6] => 2
+                        [7] => 27450
+                        [8] => 1550355943
+                        [9] => 1550355943
+                        [10] => 1550355943
+                        [11] => -1
+                        [12] => -1
+                        [dev] => 2
+                        [ino] => 0
+                        [mode] => 33206
+                        [nlink] => 1
+                        [uid] => 0
+                        [gid] => 0
+                        [rdev] => 2
+                        [size] => 27450
+                        [atime] => 1550355943
+                        [mtime] => 1550355943
+                        [ctime] => 1550355943
+                        [blksize] => -1
+                        [blocks] => -1
+                    )
 
-        )
+            )
 
-    [1] => Array
-        (
-            [status] => 1
-            [message] => The file "CV -  Work.docx" has been uploaded.
-            [file_details] => Array
-                (
-                    [name] => CV -  Work
-                    [type] => application/vnd.openxmlformats-officedocument.wordprocessingml.document
-                    [tmp_name] => C:\xampp\tmp\phpEC3F.tmp
-                    [size] => 27450
-                    [extension] => docx
-                    [basename] => CV -  Work.docx
-                    [save_as] => my_doc_name
-                )
+    )
+```
 
-        )
-
-    [2] => Array
-        (
-            [status] => 1
-            [message] => The file "Friends.S01.E01.mkv" has been uploaded.
-            [file_details] => Array
-                (
-                    [name] => Friends
-                    [type] => application/octet-stream
-                    [tmp_name] => C:\xampp\tmp\phpE827.tmp
-                    [size] => 62623618
-                    [extension] => mkv
-                    [basename] => Friends.S01.E01.mkv
-                    [save_as] => E6lwTc57iv
-                )
-
-        )
-
-    [3] => Array
-        (
-            [status] => 1
-            [message] => The file "Friends S01.zip" has been uploaded.
-            [file_details] => Array
-                (
-                    [name] => Friends S01
-                    [type] => application/x-zip-compressed
-                    [tmp_name] => C:\xampp\tmp\phpEC4F.tmp
-                    [size] => 1447047
-                    [extension] => zip
-                    [basename] => Friends S01.zip
-                    [save_as] => Friends S01.zip
-                )
-
-        )
-
-)
-
-
-``` 
 ##### Attributes of config_files
 
 |     attr    	|  default  	|                         mean                         	|
@@ -217,6 +186,8 @@ Array
 |   min_size   	|     1      	|         The minimum size of files that are allowed (KiloByte).        	|
 | max_size 	| 999999 	|          The maximum size of files that are allowed (KiloByte).          	|
 | types      | '*' (everything) 	|          The types that are allowed (must be an array)                     	|
+
+
 
 ## Example
 For see complete example, please go to [example.php](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/examples/example.php)

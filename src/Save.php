@@ -31,11 +31,21 @@ abstract class Save implements FileInterface
     private $validator;
 
     /**
+     * @var string
+     */
+    private $path = '';
+
+    /**
+     * @var string
+     */
+    private $file_path = '';
+
+    /**
      * @var bool
      */
     private $override;
     /**
-     * @var bool
+     * @var mixed
      */
     private $save_as;
 
@@ -51,13 +61,14 @@ abstract class Save implements FileInterface
     /**
      * @param $path
      * @return array
-     * @throws Exception
      */
     public function save($path)
     {
+        $this->path = $path;
+
         try {
             $this->validate();
-            $this->moveFile($path);
+            $this->moveFile();
             return $this->message(true, "The file \"" . $this->getBaseNameFile() . "\" has been uploaded.");
         } catch (SaveExceptionInterface $e) {
             return $this->message(false, $e->getMessage());
@@ -76,27 +87,26 @@ abstract class Save implements FileInterface
     }
 
     /**
-     * @param $path
      * @throws Exception
      */
-    private function moveFile($path)
+    private function moveFile()
     {
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
+        if (!is_dir($this->path)) {
+            mkdir($this->path, 0777, true);
         }
 
         if (null !== $this->getSaveAs()) {
-            $file_path = $path . "/" . $this->getSaveAs() . "." . $this->getFileExtension();
-        }else{
-            $file_path = $path . "/" . $this->getbasenamefile();
+            $this->file_path = $this->path . "/" . $this->getSaveAs() . "." . $this->getFileExtension();
+        } else {
+            $this->file_path = $this->path . "/" . $this->getbasenamefile();
         }
 
-        if (!$this->isOverride() && file_exists($file_path)) {
-            throw new Exception("Sorry, file already exists. The file path: " . $file_path);
+        if (!$this->isOverride() && file_exists($this->file_path)) {
+            throw new Exception("Sorry, file already exists. The file path: \"" . $this->file_path . "\"");
         }
 
-        if (!move_uploaded_file($this->getFileTmpName(), $file_path)) {
-            throw new Exception("Sorry, there was an error uploading your file");
+        if (!move_uploaded_file($this->getFileTmpName(), $this->file_path)) {
+            throw new Exception("Sorry, there was an error uploading your file. Maybe the path does not have permission to write");
         }
     }
 
@@ -104,17 +114,15 @@ abstract class Save implements FileInterface
      * @param $status
      * @param $message
      * @return array
-     * @throws Exception
      */
     private function message($status, $message)
     {
         $message = [
             'status' => $status,
             'message' => $message,
-
         ];
 
-        if ($status) {
+        try {
             $message = array_merge(
                 $message,
                 [
@@ -125,11 +133,15 @@ abstract class Save implements FileInterface
                         'size' => $this->getFileSize(),
                         'extension' => $this->getFileExtension(),
                         'basename' => $this->getbasenamefile(),
-                        'save_as' => (null === $this->getSaveAs()) ? $this->getbasenamefile() : $this->getSaveAs()
+                        'save_as' => (null === $this->getSaveAs()) ? $this->getbasenamefile() : $this->getSaveAs() . '.' . $this->getFileExtension(),
+                        'dir_path' => $this->path,
+                        'file_path' => $this->file_path,
+                        'upload_datetime' => date("Y-m-d H:i:s"),
+                        'stat' => stat($this->file_path)
                     ]
                 ]
             );
-        }
+        } catch (Exception $e) {}
 
         return $message;
     }
