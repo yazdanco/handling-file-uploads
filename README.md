@@ -36,9 +36,8 @@ $config_files = [
 ];
 
 $save_as = save_as($config_files)->all();
-
-
 ```
+**Please see [example.php](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/examples/example.php) for more information. In that page you can see complete examples of usage of this package.**
 
 ## Documentation
 First create your own html or ajax or other service that can pass files to server
