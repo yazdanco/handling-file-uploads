@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\FFMpegStreaming;
+namespace Tests\SaveUploadedFiles;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 

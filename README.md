@@ -1,4 +1,13 @@
 # Save Uploaded Files
+
+[![Build Status](https://travis-ci.org/aminyazdanpanah/save-uploaded-files.svg?branch=master)](https://travis-ci.org/aminyazdanpanah/save-uploaded-files)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/aminyazdanpanah/save-uploaded-files.svg?style=flat-square)](https://packagist.org/packages/aminyazdanpanah/save-uploaded-files)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aminyazdanpanah/save-uploaded-files/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/aminyazdanpanah/save-uploaded-files/?branch=master)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/aminyazdanpanah/PHP-FFmpeg-video-streaming/blob/master/LICENSE)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/aminyazdanpanah/save-uploaded-files/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Total Downloads](https://img.shields.io/packagist/dt/aminyazdanpanah/save-uploaded-files.svg?style=flat-square)](https://packagist.org/packages/aminyazdanpanah/save-uploaded-files)
+
+
 The powerful upload manger for PHP that allows you to save all your uploaded files with a validator and extract details of files into an `array`. 
 
 ## Features
