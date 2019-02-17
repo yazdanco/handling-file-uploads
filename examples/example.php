@@ -62,42 +62,42 @@ if(isset($_POST["submit"])) {
         ]
     ];
 
-    $save_as = save_as($config_files);
+    $uploads = save_uploads($config_files);
 
     echo "<pre>";
 
     echo "
     |------------------------------------------------------All uploads--------------------------------------------------------------|
     ";
-    print_r($save_as->all());// Returns all uploads and their details.
+    print_r($uploads->all());// Returns all uploads and their details.
     echo "
     |-------------------------------------------------------Get some uploads-------------------------------------------------------------|
     ";
-    print_r($save_as->get(['upload_video', 'upload_raw']));// Returns specified uploads and their details.
+    print_r($uploads->get(['upload_video', 'upload_raw']));// Returns specified uploads and their details.
     echo "
     |--------------------------------------------------------Except some uploads------------------------------------------------------------|
     ";
-    print_r($save_as->except(['upload_raw', 'upload_image']));// Returns all uploads and their details except those ones specified.
+    print_r($uploads->except(['upload_raw', 'upload_image']));// Returns all uploads and their details except those ones specified.
     echo "
     |--------------------------------------------------------First upload------------------------------------------------------------|
     ";
-    print_r($save_as->first());// Returns first upload and it's detail.
+    print_r($uploads->first());// Returns first upload and it's detail.
     echo "
     |--------------------------------------------------------All succeeded uploads------------------------------------------------------------|
     ";
-    print_r($save_as->succeeded());// Returns all succeeded uploads and their details.
+    print_r($uploads->succeeded());// Returns all succeeded uploads and their details.
     echo "
     |--------------------------------------------------------All failed uploads------------------------------------------------------------|
     ";
-    print_r($save_as->failed());// Returns all failed uploads and their details.
+    print_r($uploads->failed());// Returns all failed uploads and their details.
     echo "
     |--------------------------------------------------------All names of uploads------------------------------------------------------------|
     ";
-    print_r($save_as->names());// Returns all upload names.
+    print_r($uploads->names());// Returns all upload names.
     echo "
     |--------------------------------------------------------The number of uploads------------------------------------------------------------|
     ";
-    print_r($save_as->count());// Returns the number of uploads
+    print_r($uploads->count());// Returns the number of uploads
 
     echo "</pre>";
 }

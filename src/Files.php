@@ -30,11 +30,12 @@ class Files
      */
     public static function files($files)
     {
-
         if (!is_array($files) && count($files) > 0) {
             throw new Exception("File must be an array", 500);
         }
+
         $extractions = [];
+
         foreach ($files as $file) {
             if (!isset($file['name'], $file['save_to'])) {
                 throw new Exception("Filename or path is not specified", 500);

@@ -19,13 +19,13 @@
 use AYazdanpanah\SaveUploadedFiles\Files;
 use AYazdanpanah\SaveUploadedFiles\Filter;
 
-if (! function_exists('save_as')) {
+if (! function_exists('save_uploads')) {
     /**
      * @param $config_files
      * @return mixed
      * @throws \AYazdanpanah\SaveUploadedFiles\Exception\SaveExceptionInterface
      */
-    function save_as($config_files): Filter
+    function save_uploads($config_files): Filter
     {
         return Files::files($config_files);
     }

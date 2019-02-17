@@ -44,7 +44,7 @@ $config_files = [
     ]
 ];
 
-$save_as = save_as($config_files)->all();
+$uploads = save_uploads($config_files)->all();
 ```
 **Please see [example.php](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/examples/example.php) for more information. In that page you can see complete examples of usage of this package.**
 
@@ -69,7 +69,7 @@ First create your own html or ajax or other service that can pass files to serve
 </html>
 ``` 
 
-In the sever side you should create a config file and pass it to `save_as()` method:
+In the sever side you should create a config file and pass it to `save_uploads()` method:
 ```php
 $config_files = [
     [
@@ -108,19 +108,19 @@ $config_files = [
     ]
 ];
 
-$extractions = save_as($config_files);
+$uploads = save_uploads($config_files);
 ```
 
 You can extract details of your upload:
 ```php
-print_r($save_as->all());// Returns all uploads and their details.
-print_r($save_as->get(['upload_video', 'upload_raw']));// Returns specified uploads and their details.
-print_r($save_as->except(['upload_raw', 'upload_image']));// Returns all uploads and their details except those ones specified.
-print_r($save_as->first());// Returns first upload and it's detail.
-print_r($save_as->succeeded());// Returns all succeeded uploads and their details.
-print_r($save_as->failed());// Returns all failed uploads and their details.
-print_r($save_as->names());// Returns all upload names.
-print_r($save_as->count());// Returns the number of uploads
+print_r($uploads->all());// Returns all uploads and their details.
+print_r($uploads->get(['upload_video', 'upload_raw']));// Returns specified uploads and their details.
+print_r($uploads->except(['upload_raw', 'upload_image']));// Returns all uploads and their details except those ones specified.
+print_r($uploads->first());// Returns first upload and it's detail.
+print_r($uploads->succeeded());// Returns all succeeded uploads and their details.
+print_r($uploads->failed());// Returns all failed uploads and their details.
+print_r($uploads->names());// Returns all upload names.
+print_r($uploads->count());// Returns the number of uploads
 ```
 
 An example of "details of the upload":
