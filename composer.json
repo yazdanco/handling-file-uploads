@@ -33,5 +33,8 @@
     },
     "require": {
         "php": "^7.1.0"
+    },
+    "suggest": {
+        "aminyazdanpanah/php-ffmpeg-video-streaming": "aminyazdanpanah/php-ffmpeg-video-streaming is suggested for validate video files and create DASH and HLS files."
     }
 }
