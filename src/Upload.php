@@ -21,7 +21,7 @@ namespace AYazdanpanah\SaveUploadedFiles;
 
 use AYazdanpanah\SaveUploadedFiles\Exception\Exception;
 
-class Files
+class Upload
 {
     /**
      * @param $files
@@ -31,19 +31,24 @@ class Files
     public static function files($files)
     {
         if (!is_array($files) && count($files) > 0) {
-            throw new Exception("File must be an array", 500);
+            throw new Exception("File must be an array");
         }
 
         $extractions = [];
 
         foreach ($files as $file) {
             if (!isset($file['name'], $file['save_to'])) {
-                throw new Exception("Filename or path is not specified", 500);
+                throw new Exception("Filename or path is not specified");
             }
 
             $validator = static::validator(static::mockValidator());
             $override = false;
             $save_as = null;
+            $export = static::mockCallback();
+
+            if(isset($file['export'])){
+                $export = $file['export'];
+            }
 
             if (isset($file['validator'])) {
                 $validator = static::validator($file['validator']);
@@ -61,7 +66,7 @@ class Files
                 ->file($file['name'])
                 ->setOverride($override)
                 ->setSaveAs($save_as)
-                ->save($file['save_to']);
+                ->save($file['save_to'], $export);
         }
 
         return new Filter($extractions);
@@ -74,26 +79,33 @@ class Files
      */
     private static function validator($validator): Validator
     {
-        if (!isset($validator['min_size'], $validator['max_size'], $validator['types']) || !is_array($validator['types'])) {
-            throw new Exception("Invalid validator inputs: check min_size, max_size, and types again", 500);
+        if (!isset($validator['min_size'], $validator['max_size'], $validator['allowed_extensions']) || !is_array($validator['allowed_extensions'])) {
+            throw new Exception("Invalid validator inputs: check min_size, max_size, and types again");
         }
 
         return (new Validator())
             ->setMinSize($validator['min_size'])
             ->setMaxSize($validator['max_size'])
-            ->setType($validator['types']);
+            ->setType($validator['allowed_extensions']);
     }
 
     /**
      * @return array
      */
-    private static function mockValidator()
+    private static function mockValidator():array
     {
         return [
             'min_size' => 1,
             'max_size' => 999999,
-            'types' => ['*']
+            'allowed_extensions' => ['*']
 
         ];
+    }
+
+    private static function mockCallback(): callable
+    {
+        return function ($filename){
+            return $filename;
+        };
     }
 }

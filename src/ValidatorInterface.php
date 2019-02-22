@@ -52,5 +52,5 @@ interface ValidatorInterface
     /**
      * @return mixed
      */
-    public function getType();
+    public function getTypes();
 }

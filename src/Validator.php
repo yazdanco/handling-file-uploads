@@ -44,7 +44,7 @@ class Validator extends Validate
     /**
      * @return mixed
      */
-    public function getType()
+    public function getTypes()
     {
         return $this->type;
     }

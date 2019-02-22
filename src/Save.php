@@ -50,6 +50,11 @@ abstract class Save implements FileInterface
     private $save_as;
 
     /**
+     * @var mixed
+     */
+    private $export_data;
+
+    /**
      * Save constructor.
      * @param Validator $validator
      */
@@ -60,18 +65,20 @@ abstract class Save implements FileInterface
 
     /**
      * @param $path
+     * @param callable $export
      * @return array
      */
-    public function save($path)
+    public function save($path, callable $export)
     {
         $this->path = $path;
 
         try {
             $this->validate();
             $this->moveFile();
-            return $this->message(true, "The file \"" . $this->getBaseNameFile() . "\" has been uploaded.");
+            $this->export($export);
+            return $this->output(true, "The file \"" . $this->getBaseNameFile() . "\" has been uploaded.");
         } catch (SaveExceptionInterface $e) {
-            return $this->message(false, $e->getMessage());
+            return $this->output(false, $e->getMessage());
         }
     }
 
@@ -112,19 +119,19 @@ abstract class Save implements FileInterface
 
     /**
      * @param $status
-     * @param $message
+     * @param $output
      * @return array
      */
-    private function message($status, $message)
+    private function output($status, $output)
     {
-        $message = [
+        $output = [
             'status' => $status,
-            'message' => $message,
+            'output' => $output,
         ];
 
         try {
-            $message = array_merge(
-                $message,
+            $output = array_merge(
+                $output,
                 [
                     'file_details' => [
                         'name' => $this->getFileName(),
@@ -137,13 +144,16 @@ abstract class Save implements FileInterface
                         'dir_path' => $this->path,
                         'file_path' => $this->file_path,
                         'upload_datetime' => date("Y-m-d H:i:s"),
-                        'stat' => stat($this->file_path)
+                        'stat' => !is_file($this->file_path)?:stat($this->file_path),
+                        'mime_content_type' => !is_file($this->file_path)?:mime_content_type($this->file_path),
+                        'export' => $this->export_data,
                     ]
                 ]
             );
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
 
-        return $message;
+        return $output;
     }
 
     /**
@@ -180,5 +190,10 @@ abstract class Save implements FileInterface
     public function getSaveAs()
     {
         return $this->save_as;
+    }
+
+    private function export(callable $export)
+    {
+        $this->export_data = $export($this->file_path);
     }
 }

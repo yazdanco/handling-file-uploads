@@ -19,7 +19,7 @@
 namespace AYazdanpanah\SaveUploadedFiles;
 
 
-class Filter
+class Filter implements \Countable
 {
     private $extractions;
 

@@ -16,29 +16,43 @@
  * limitations under the License.
  */
 
-use AYazdanpanah\SaveUploadedFiles\Files;
+use AYazdanpanah\SaveUploadedFiles\Helper;
+use AYazdanpanah\SaveUploadedFiles\Upload;
 use AYazdanpanah\SaveUploadedFiles\Filter;
 
-if (! function_exists('save_uploads')) {
+if (! function_exists('uploads')) {
     /**
      * @param $config_files
      * @return mixed
      * @throws \AYazdanpanah\SaveUploadedFiles\Exception\SaveExceptionInterface
      */
-    function save_uploads($config_files): Filter
+    function uploads($config_files): Filter
     {
-        return Files::files($config_files);
+        return Upload::files($config_files);
     }
 }
 
-if (! function_exists('generateRandomString')) {
+if (! function_exists('str_random')) {
     /**
      * @param int $length
      * @return string
      */
-    function generateRandomString($length = 10)
+    function str_random($length = 10): string
     {
-        return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+        return Helper::str_random($length);
+    }
+}
+
+if (! function_exists('is_type')) {
+    /**
+     * @param $type
+     * @param $filename
+     * @return bool
+     */
+
+    function is_type($type, $filename): bool
+    {
+        return Helper::isType($type,$filename);
     }
 }
 
@@ -48,46 +62,6 @@ if (! function_exists('video_types')) {
      */
     function video_types(): array
     {
-        return [
-            'webm',
-            'mkv',
-            'flv',
-            'vob',
-            'ogv',
-            'ogg',
-            'drc',
-            'gif',
-            'gifv',
-            'avi',
-            'MTS',
-            'M2TS',
-            'mov',
-            'qt',
-            'yuv',
-            'rm',
-            'rmvb',
-            'asf',
-            'amv',
-            'mp4',
-            'm4p ',
-            'm4v',
-            'mpg',
-            'mp2',
-            'mpeg',
-            'mpe',
-            'mpg',
-            'mpeg',
-            'm2v',
-            '3gp',
-            '3g2',
-            'mxf',
-            'roq',
-            'nsv',
-            'flv',
-            'f4v',
-            'f4p',
-            'f4a',
-            'f4b',
-        ];
+        return Helper::videoTypes();
     }
 }

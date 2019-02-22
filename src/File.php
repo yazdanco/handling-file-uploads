@@ -42,7 +42,7 @@ class File extends Save
     private function getFile()
     {
         if (!isset($_FILES[$this->filename])) {
-            throw new Exception("There is no \"" .$this->filename . "\" key in the \$_FILES. Be sure your key name is correct", 500);
+            throw new Exception("There is no \"" .$this->filename . "\" key in the \$_FILES. Be sure your key name is correct");
         }
 
         if($code = $_FILES[$this->filename]['error']){
@@ -115,31 +115,31 @@ class File extends Save
     {
         switch ($code){
             case 1:
-                throw new Exception("The uploaded file exceeds the upload_max_filesize directive in php.ini",500);
+                throw new Exception("The uploaded file exceeds the upload_max_filesize directive in php.ini");
                 break;
             case 2:
-                throw new Exception("The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form",500);
+                throw new Exception("The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form");
                 break;
             case 3:
-                throw new Exception("The uploaded file was only partially uploaded",500);
+                throw new Exception("The uploaded file was only partially uploaded");
                 break;
             case 4:
-                throw new Exception("No file was uploaded",500);
+                throw new Exception("No file was uploaded");
                 break;
             case 5:
-                throw new Exception("Unknown error occurred.",500);
+                throw new Exception("Unknown error occurred.");
                 break;
             case 6:
-                throw new Exception("Missing a temporary folder.",500);
+                throw new Exception("Missing a temporary folder.");
                 break;
             case 7:
-                throw new Exception("Failed to write file to disk",500);
+                throw new Exception("Failed to write file to disk");
                 break;
             case 8:
-                throw new Exception("A PHP extension stopped the file upload",500);
+                throw new Exception("A PHP extension stopped the file upload");
                 break;
             default:
-                throw new Exception("Unknown error occurred.",500);
+                throw new Exception("Unknown error occurred.");
         }
 
 

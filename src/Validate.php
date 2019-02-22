@@ -39,7 +39,7 @@ abstract class Validate implements ValidatorInterface
             throw new Exception("The file size is " . intval($this->getFileSize() / 1024) . "KB! It must be at least " . intval($this->getMinSize() / 1024) . "KB");
         }
 
-        if (!in_array($this->getFileExtension(), $this->getType()) && !in_array("*", $this->getType())) {
+        if (!in_array(strtolower($this->getFileExtension()), $this->getTypes()) && !in_array("*", $this->getTypes())) {
             throw new Exception("Sorry, the \"" . $this->getFileExtension() . "\" files are not allowed! Only " . implode(", ", $this->getType()) . " files are allowed. ");
         }
     }
