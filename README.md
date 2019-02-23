@@ -106,7 +106,7 @@ You can validate your uploaded file before move the uploaded file to the destina
 | max_size 	| 999999 	|          The maximum size of files that are allowed (KiloByte).          	|
 | types      | '*' (everything) 	|          The types that are allowed (must be an array)                     	|
 
-####After Saving
+#### After Saving
 You can set some rules after move the uploaded file to the destination by using a callback  method. To validate a file after saving, just check your file in the callback method and throw an `AYazdanpanah\SaveUploadedFiles\Exception\Exception`. In the end, put it in the array of config and pass it to `Upload::files($config)`. In the callback method, you can manage your file. For example, resize image or video, convert video, extracting an archive file and etc. After that, you are able to return your data.
 
 ``` php
