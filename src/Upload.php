@@ -62,8 +62,9 @@ class Upload
                 $save_as = $file['save_as'];
             }
 
-            $extractions[$file['name']] = (new File($validator))
+            $extractions[$file['name']] = (new File())
                 ->file($file['name'])
+                ->setValidator($validator)
                 ->setOverride($override)
                 ->setSaveAs($save_as)
                 ->save($file['save_to'], $export);

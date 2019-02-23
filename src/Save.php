@@ -55,15 +55,6 @@ abstract class Save implements FileInterface
     private $export_data;
 
     /**
-     * Save constructor.
-     * @param Validator $validator
-     */
-    public function __construct(Validator $validator)
-    {
-        $this->validator = $validator;
-    }
-
-    /**
      * @param $path
      * @param callable $export
      * @return array
@@ -195,5 +186,15 @@ abstract class Save implements FileInterface
     private function export(callable $export)
     {
         $this->export_data = $export($this->file_path);
+    }
+
+    /**
+     * @param Validator $validator
+     * @return Save
+     */
+    public function setValidator(Validator $validator): Save
+    {
+        $this->validator = $validator;
+        return $this;
     }
 }
