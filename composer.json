@@ -33,7 +33,7 @@
     },
     "require": {
         "php": "^7.1.0",
-        "aminyazdanpanah/php-ffmpeg-video-streaming": "dev-master",
+        "aminyazdanpanah/php-ffmpeg-video-streaming": "1.1.*",
         "gumlet/php-image-resize": "1.9.*",
         "wapmorgan/unified-archive": "~0.1.2"
     },
