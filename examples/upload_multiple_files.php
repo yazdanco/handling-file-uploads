@@ -20,7 +20,7 @@
 //before require auto load, you should install package via composer:
 //composer install
 //or
-//composer require aminyazdanpanah/save-uploaded-files
+//composer require aminyazdanpanah/handling-file-uploads
 //Note: To find out how to install composer, just google "install or download composer"
 
 require_once '../vendor/autoload.php';
