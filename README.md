@@ -1,11 +1,11 @@
 # Handling File Uploads
 
-[![Build Status](https://travis-ci.org/aminyazdanpanah/save-uploaded-files.svg?branch=master)](https://travis-ci.org/aminyazdanpanah/save-uploaded-files)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/aminyazdanpanah/save-uploaded-files.svg?style=flat-square)](https://packagist.org/packages/aminyazdanpanah/save-uploaded-files)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aminyazdanpanah/save-uploaded-files/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/aminyazdanpanah/save-uploaded-files/?branch=master)
+[![Build Status](https://travis-ci.org/aminyazdanpanah/handling-file-uploads.svg?branch=master)](https://travis-ci.org/aminyazdanpanah/handling-file-uploads)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/aminyazdanpanah/handling-file-uploads.svg?style=flat-square)](https://packagist.org/packages/aminyazdanpanah/handling-file-uploads)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/aminyazdanpanah/handling-file-uploads/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/aminyazdanpanah/handling-file-uploads/?branch=master)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/aminyazdanpanah/PHP-FFmpeg-video-streaming/blob/master/LICENSE)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/aminyazdanpanah/save-uploaded-files/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
-[![Total Downloads](https://img.shields.io/packagist/dt/aminyazdanpanah/save-uploaded-files.svg?style=flat-square)](https://packagist.org/packages/aminyazdanpanah/save-uploaded-files)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/aminyazdanpanah/handling-file-uploads/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Total Downloads](https://img.shields.io/packagist/dt/aminyazdanpanah/handling-file-uploads.svg?style=flat-square)](https://packagist.org/packages/aminyazdanpanah/handling-file-uploads)
 
 
 Handles multiple uploads with a powerful validation for images, videos, audios, and archive files. This package allows you to handle your file after your file was uploaded. You can resize, convert, extract and so many things to do after your files were uploaded. At the end, you can extract details of files into an `array`.
@@ -80,7 +80,7 @@ $upload = $upload->file('upload_key_name')
     
 var_dump("<pre>", $upload, "</pre>");
 ```
-**Important: Please see [examples](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/examples/) for more information. In these pages you can see complete examples of usage this package.**
+**Important: Please see [examples](https://github.com/aminyazdanpanah/handling-file-uploads/blob/master/examples/) for more information. In these pages you can see complete examples of usage this package.**
 
 ## Documentation
 It is recommended to browse the source code as it is self-documented.
@@ -341,15 +341,15 @@ print_r($uploads->count());// Returns the number of uploads
 
 
 ## Examples
-For see complete example, please go to [examples](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/examples).
+For see complete example, please go to [examples](https://github.com/aminyazdanpanah/handling-file-uploads/blob/master/examples).
 
 ## Contributing
 
 I'd love your help in improving, correcting, adding to the specification.
-Please [file an issue](https://github.com/aminyazdanpanah/save-uploaded-files/issues)
-or [submit a pull request](https://github.com/aminyazdanpanah/save-uploaded-files/pulls).
+Please [file an issue](https://github.com/aminyazdanpanah/handling-file-uploads/issues)
+or [submit a pull request](https://github.com/aminyazdanpanah/handling-file-uploads/pulls).
 
-Please see [Contributing File](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/CONTRIBUTING.md) for more information.
+Please see [Contributing File](https://github.com/aminyazdanpanah/handling-file-uploads/blob/master/CONTRIBUTING.md) for more information.
 
 ## Security
 
@@ -357,8 +357,8 @@ If you discover a security vulnerability within this package, please send an e-m
 contact [AT] aminyazdanpanah • com.
 ## Credits
 
-- [Amin Yazdanpanah](http://www.aminyazdanpanah.com/?u=github.com/aminyazdanpanah/save-uploaded-files)
+- [Amin Yazdanpanah](http://www.aminyazdanpanah.com/?u=github.com/aminyazdanpanah/handling-file-uploads)
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/aminyazdanpanah/save-uploaded-files/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/aminyazdanpanah/handling-file-uploads/blob/master/LICENSE) for more information.
