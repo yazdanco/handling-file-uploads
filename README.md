@@ -1,4 +1,4 @@
-# Save Uploaded Files
+# Handling File Uploads
 
 [![Build Status](https://travis-ci.org/aminyazdanpanah/save-uploaded-files.svg?branch=master)](https://travis-ci.org/aminyazdanpanah/save-uploaded-files)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/aminyazdanpanah/save-uploaded-files.svg?style=flat-square)](https://packagist.org/packages/aminyazdanpanah/save-uploaded-files)
