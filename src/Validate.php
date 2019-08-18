@@ -40,7 +40,7 @@ abstract class Validate implements ValidatorInterface
         }
 
         if (!in_array(strtolower($this->getFileExtension()), $this->getTypes()) && !in_array("*", $this->getTypes())) {
-            throw new Exception("Sorry, the \"" . $this->getFileExtension() . "\" files are not allowed! Only " . implode(", ", $this->getType()) . " files are allowed. ");
+            throw new Exception("Sorry, the \"" . $this->getFileExtension() . "\" files are not allowed! Only " . implode(", ", $this->getTypes()) . " files are allowed. ");
         }
     }
 
